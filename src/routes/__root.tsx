@@ -89,10 +89,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: "NISQAI — AI Language Learning" },
       {
         property: "og:description",
-        content: "AI lessons, quizzes, a live tutor and real-life practice in five languages.",
+        content: "Learn French, German, Spanish, Hindi and Japanese with AI lessons, a tutor that corrects you, and real-life roleplay.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "NISQAI — AI Language Learning" },
+      { name: "twitter:description", content: "Learn French, German, Spanish, Hindi and Japanese with AI lessons, a tutor that corrects you, and real-life roleplay." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/04bbd79d-0be7-434f-8a2b-4efc903fce91/id-preview-48260f27--5f58efce-9c53-4a0a-ba3e-726a59f6632e.lovable.app-1785172245477.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/04bbd79d-0be7-434f-8a2b-4efc903fce91/id-preview-48260f27--5f58efce-9c53-4a0a-ba3e-726a59f6632e.lovable.app-1785172245477.png" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
