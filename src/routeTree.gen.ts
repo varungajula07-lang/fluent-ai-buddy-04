@@ -13,8 +13,12 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as AuthenticatedTutorRouteImport } from './routes/_authenticated/tutor'
+import { Route as AuthenticatedScenariosRouteImport } from './routes/_authenticated/scenarios'
+import { Route as AuthenticatedLeaderboardRouteImport } from './routes/_authenticated/leaderboard'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedLearnIndexRouteImport } from './routes/_authenticated/learn/index'
+import { Route as AuthenticatedLearnCodeRouteImport } from './routes/_authenticated/learn/$code'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -35,6 +39,22 @@ const ApiChatRoute = ApiChatRouteImport.update({
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedTutorRoute = AuthenticatedTutorRouteImport.update({
+  id: '/tutor',
+  path: '/tutor',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedScenariosRoute = AuthenticatedScenariosRouteImport.update({
+  id: '/scenarios',
+  path: '/scenarios',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedLeaderboardRoute =
+  AuthenticatedLeaderboardRouteImport.update({
+    id: '/leaderboard',
+    path: '/leaderboard',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -45,19 +65,32 @@ const AuthenticatedLearnIndexRoute = AuthenticatedLearnIndexRouteImport.update({
   path: '/learn/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedLearnCodeRoute = AuthenticatedLearnCodeRouteImport.update({
+  id: '/learn/$code',
+  path: '/learn/$code',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/leaderboard': typeof AuthenticatedLeaderboardRoute
+  '/scenarios': typeof AuthenticatedScenariosRoute
+  '/tutor': typeof AuthenticatedTutorRoute
   '/api/chat': typeof ApiChatRoute
+  '/learn/$code': typeof AuthenticatedLearnCodeRoute
   '/learn/': typeof AuthenticatedLearnIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/leaderboard': typeof AuthenticatedLeaderboardRoute
+  '/scenarios': typeof AuthenticatedScenariosRoute
+  '/tutor': typeof AuthenticatedTutorRoute
   '/api/chat': typeof ApiChatRoute
+  '/learn/$code': typeof AuthenticatedLearnCodeRoute
   '/learn': typeof AuthenticatedLearnIndexRoute
 }
 export interface FileRoutesById {
@@ -66,21 +99,47 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/leaderboard': typeof AuthenticatedLeaderboardRoute
+  '/_authenticated/scenarios': typeof AuthenticatedScenariosRoute
+  '/_authenticated/tutor': typeof AuthenticatedTutorRoute
   '/api/chat': typeof ApiChatRoute
+  '/_authenticated/learn/$code': typeof AuthenticatedLearnCodeRoute
   '/_authenticated/learn/': typeof AuthenticatedLearnIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/dashboard' | '/api/chat' | '/learn/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/leaderboard'
+    | '/scenarios'
+    | '/tutor'
+    | '/api/chat'
+    | '/learn/$code'
+    | '/learn/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/dashboard' | '/api/chat' | '/learn'
+  to:
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/leaderboard'
+    | '/scenarios'
+    | '/tutor'
+    | '/api/chat'
+    | '/learn/$code'
+    | '/learn'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
     | '/_authenticated/dashboard'
+    | '/_authenticated/leaderboard'
+    | '/_authenticated/scenarios'
+    | '/_authenticated/tutor'
     | '/api/chat'
+    | '/_authenticated/learn/$code'
     | '/_authenticated/learn/'
   fileRoutesById: FileRoutesById
 }
@@ -121,6 +180,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/tutor': {
+      id: '/_authenticated/tutor'
+      path: '/tutor'
+      fullPath: '/tutor'
+      preLoaderRoute: typeof AuthenticatedTutorRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/scenarios': {
+      id: '/_authenticated/scenarios'
+      path: '/scenarios'
+      fullPath: '/scenarios'
+      preLoaderRoute: typeof AuthenticatedScenariosRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/leaderboard': {
+      id: '/_authenticated/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/leaderboard'
+      preLoaderRoute: typeof AuthenticatedLeaderboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
@@ -135,16 +215,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedLearnIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/learn/$code': {
+      id: '/_authenticated/learn/$code'
+      path: '/learn/$code'
+      fullPath: '/learn/$code'
+      preLoaderRoute: typeof AuthenticatedLearnCodeRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedLeaderboardRoute: typeof AuthenticatedLeaderboardRoute
+  AuthenticatedScenariosRoute: typeof AuthenticatedScenariosRoute
+  AuthenticatedTutorRoute: typeof AuthenticatedTutorRoute
+  AuthenticatedLearnCodeRoute: typeof AuthenticatedLearnCodeRoute
   AuthenticatedLearnIndexRoute: typeof AuthenticatedLearnIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedLeaderboardRoute: AuthenticatedLeaderboardRoute,
+  AuthenticatedScenariosRoute: AuthenticatedScenariosRoute,
+  AuthenticatedTutorRoute: AuthenticatedTutorRoute,
+  AuthenticatedLearnCodeRoute: AuthenticatedLearnCodeRoute,
   AuthenticatedLearnIndexRoute: AuthenticatedLearnIndexRoute,
 }
 
