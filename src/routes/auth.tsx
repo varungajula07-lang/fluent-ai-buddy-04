@@ -33,6 +33,12 @@ function AuthPage() {
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
 
+  const getAppOrigin = () =>
+    import.meta.env.VITE_APP_URL ||
+    (typeof window !== "undefined" ? window.location.origin : "");
+
+  const redirectToDashboard = `${getAppOrigin()}/dashboard`;
+
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -66,7 +72,7 @@ function AuthPage() {
           password,
           options: {
             data: { name },
-            emailRedirectTo: `${window.location.origin}/dashboard`,
+            emailRedirectTo: redirectToDashboard,
           },
         });
         if (error) throw error;
@@ -87,7 +93,7 @@ function AuthPage() {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/dashboard`,
+        redirectTo: redirectToDashboard,
       },
     });
 
