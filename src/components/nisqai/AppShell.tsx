@@ -26,23 +26,34 @@ export function AppShell({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="min-h-screen pb-24">
-      <header className="sticky top-0 z-30 border-b-2 border-border bg-background/90 backdrop-blur">
-        <div className="mx-auto flex max-w-4xl items-center gap-3 px-4 py-3">
-          <Link to="/dashboard" className="font-display text-xl font-extrabold text-primary">
-            NISQAI
-          </Link>
+    <div className="min-h-screen pb-28 bg-background/70 text-foreground">
+      <header className="sticky top-0 z-30 border-b-2 border-border/80 bg-background/90 backdrop-blur-xl">
+        <div className="relative mx-auto flex max-w-5xl items-center gap-3 px-4 py-4">
+          <div className="flex items-center gap-3">
+            <Link
+              to="/dashboard"
+              className="font-display text-2xl font-black tracking-tight text-primary"
+            >
+              NISQAI
+            </Link>
+            <span className="inline-flex rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-primary">
+              Language AI
+            </span>
+          </div>
+
+          <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-primary via-gold to-accent opacity-30 blur-xl" />
+
           <div className="ml-auto flex items-center gap-2">
-            <span className="flex items-center gap-1 rounded-full bg-gold/20 px-3 py-1 text-sm font-extrabold text-gold-foreground">
+            <span className="flex items-center gap-1 rounded-full bg-gold/20 px-3 py-1 text-sm font-semibold text-gold-foreground shadow-card transition-transform duration-300 hover:-translate-y-0.5">
               <Zap className="h-4 w-4" /> {profile?.xp ?? 0}
             </span>
-            <span className="flex items-center gap-1 rounded-full bg-primary/15 px-3 py-1 text-sm font-extrabold text-primary">
+            <span className="flex items-center gap-1 rounded-full bg-primary/15 px-3 py-1 text-sm font-semibold text-primary shadow-card transition-transform duration-300 hover:-translate-y-0.5">
               <Flame className="h-4 w-4" /> {profile?.streak ?? 0}
             </span>
             <button
               onClick={signOut}
               aria-label="Sign out"
-              className="rounded-full p-2 text-muted-foreground hover:bg-muted"
+              className="rounded-full p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
               <LogOut className="h-4 w-4" />
             </button>
@@ -50,16 +61,20 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
       </header>
 
-      <main className="mx-auto max-w-4xl px-4 py-6">{children}</main>
+      <main className="mx-auto max-w-5xl px-4 py-6">
+        <section className="animate-fadeIn rounded-[2rem] border border-border bg-card/95 p-6 shadow-float transition-all duration-500">
+          {children}
+        </section>
+      </main>
 
-      <nav className="fixed inset-x-0 bottom-0 z-30 border-t-2 border-border bg-card">
-        <div className="mx-auto flex max-w-4xl">
+      <nav className="fixed inset-x-0 bottom-0 z-30 border-t-2 border-border bg-card/95 backdrop-blur-md">
+        <div className="mx-auto flex max-w-5xl">
           {NAV.map((item) => (
             <Link
               key={item.to}
               to={item.to}
-              className="flex-1 py-3 text-center text-xs font-extrabold uppercase tracking-wide text-muted-foreground transition-colors"
-              activeProps={{ className: "text-primary" }}
+              className="flex-1 border-r border-border/80 px-3 py-3 text-center text-xs font-extrabold uppercase tracking-wide text-muted-foreground transition duration-200 hover:bg-primary/5 hover:text-primary last:border-r-0"
+              activeProps={{ className: "text-primary bg-primary/10" }}
             >
               {item.label}
             </Link>

@@ -94,11 +94,15 @@ function AuthPage() {
 
       <div className="relative z-10 w-full max-w-4xl px-4">
         <div className="mb-8 flex flex-col items-center gap-4 text-center">
-          <Link to="/" className="font-display text-4xl font-black tracking-tight text-primary md:text-5xl">
+          <Link
+            to="/"
+            className="font-display text-4xl font-black tracking-tight text-primary md:text-5xl"
+          >
             NISQAI
           </Link>
           <p className="max-w-xl text-sm text-muted-foreground md:text-base">
-            A beautiful AI language learning experience with instant lessons, friendly progress tracking, and modern sign-in flows.
+            A beautiful AI language learning experience with instant lessons, friendly progress
+            tracking, and modern sign-in flows.
           </p>
         </div>
 
@@ -129,10 +133,22 @@ function AuthPage() {
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path fill="#4285F4" d="M22.5 12.26c0-.72-.06-1.41-.17-2.08H12v3.94h5.92c-.26 1.42-1.03 2.62-2.2 3.42v2.84h3.57c2.1-1.93 3.31-4.8 3.31-8.12z" />
-              <path fill="#34A853" d="M12 23c2.97 0 5.46-1 7.28-2.7l-3.57-2.84c-.99.66-2.25 1.05-3.71 1.05-2.86 0-5.29-1.93-6.16-4.54H2.2v2.85C3.99 20.92 7.74 23 12 23z" />
-              <path fill="#FBBC05" d="M5.84 14.97c-.22-.66-.35-1.36-.35-2.07s.13-1.41.35-2.07V8.0H2.2A9.988 9.988 0 0 0 1 12.9c0 1.64.4 3.19 1.2 4.56l2.64-2.49z" />
-              <path fill="#EA4335" d="M12 4.5c1.62 0 3.08.56 4.22 1.65l3.16-3.16C17.42 1.18 14.97 0 12 0 7.74 0 3.99 2.08 2.2 5.85l2.64 2.85C6.71 6.43 9.14 4.5 12 4.5z" />
+              <path
+                fill="#4285F4"
+                d="M22.5 12.26c0-.72-.06-1.41-.17-2.08H12v3.94h5.92c-.26 1.42-1.03 2.62-2.2 3.42v2.84h3.57c2.1-1.93 3.31-4.8 3.31-8.12z"
+              />
+              <path
+                fill="#34A853"
+                d="M12 23c2.97 0 5.46-1 7.28-2.7l-3.57-2.84c-.99.66-2.25 1.05-3.71 1.05-2.86 0-5.29-1.93-6.16-4.54H2.2v2.85C3.99 20.92 7.74 23 12 23z"
+              />
+              <path
+                fill="#FBBC05"
+                d="M5.84 14.97c-.22-.66-.35-1.36-.35-2.07s.13-1.41.35-2.07V8.0H2.2A9.988 9.988 0 0 0 1 12.9c0 1.64.4 3.19 1.2 4.56l2.64-2.49z"
+              />
+              <path
+                fill="#EA4335"
+                d="M12 4.5c1.62 0 3.08.56 4.22 1.65l3.16-3.16C17.42 1.18 14.97 0 12 0 7.74 0 3.99 2.08 2.2 5.85l2.64 2.85C6.71 6.43 9.14 4.5 12 4.5z"
+              />
             </svg>
             Continue with Google
           </Button>

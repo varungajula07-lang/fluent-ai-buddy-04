@@ -171,7 +171,8 @@
   }
 
   .auth-page {
-    background: radial-gradient(circle at top left, rgba(129, 112, 245, 0.16), transparent 25%),
+    background:
+      radial-gradient(circle at top left, rgba(129, 112, 245, 0.16), transparent 25%),
       radial-gradient(circle at bottom right, rgba(255, 157, 80, 0.18), transparent 20%),
       linear-gradient(180deg, var(--background) 0%, #f7f0e9 100%);
   }
@@ -224,6 +225,27 @@
   }
   50% {
     transform: translateY(-18px) translateX(12px);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .animate-fadeIn {
+    animation: fade-in 0.75s ease-out both;
+  }
+
+  .shadow-float {
+    box-shadow: 0 20px 60px -28px rgba(0, 0, 0, 0.18);
   }
 }
 

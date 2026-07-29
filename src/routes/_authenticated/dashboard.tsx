@@ -63,7 +63,11 @@ function Dashboard() {
         {isLoading && <p className="mt-2 text-muted-foreground">Loading…</p>}
         {!isLoading && (data?.progress.length ?? 0) === 0 && (
           <p className="mt-2 text-muted-foreground">
-            No lessons yet — <Link to="/learn" className="font-bold text-primary">start your first one</Link>.
+            No lessons yet —{" "}
+            <Link to="/learn" className="font-bold text-primary">
+              start your first one
+            </Link>
+            .
           </p>
         )}
         <ul className="mt-3 space-y-2">
