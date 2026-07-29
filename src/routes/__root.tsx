@@ -145,9 +145,20 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+const THEME_STORAGE_KEY = "nisqai-theme";
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const router = useRouter();
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const storedTheme = window.localStorage.getItem(THEME_STORAGE_KEY) as "light" | "dark" | null;
+    const preferredTheme =
+      storedTheme ??
+      (window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.classList.toggle("dark", preferredTheme === "dark");
+  }, []);
 
   useEffect(() => {
     const { data } = supabase.auth.onAuthStateChange((event) => {

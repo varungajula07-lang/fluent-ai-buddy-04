@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ThemeToggle } from "@/components/nisqai/ThemeToggle";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -33,9 +34,26 @@ function AuthPage() {
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
+    if (typeof window === "undefined") return;
+
+    async function resolveUrlSession() {
+      if (
+        window.location.hash.includes("access_token") ||
+        window.location.hash.includes("refresh_token")
+      ) {
+        const { data, error } = await supabase.auth.getSessionFromUrl();
+        if (!error && data.session) {
+          window.history.replaceState(null, "", window.location.pathname);
+          navigate({ to: "/dashboard" });
+          return;
+        }
+      }
+
+      const { data } = await supabase.auth.getSession();
       if (data.session) navigate({ to: "/dashboard" });
-    });
+    }
+
+    resolveUrlSession();
   }, [navigate]);
 
   async function submit(e: React.FormEvent) {
@@ -106,19 +124,22 @@ function AuthPage() {
           </p>
         </div>
 
-        <div className="auth-card mx-auto w-full max-w-md overflow-hidden rounded-[2rem] border border-white/20 bg-white/80 p-8 shadow-[var(--shadow-float)] backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_28px_80px_-40px_rgba(0,0,0,0.45)]">
-          <div className="mb-6 space-y-3">
-            <p className="inline-flex rounded-full bg-primary/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.24em] text-primary">
-              Fast setup
-            </p>
-            <h1 className="text-3xl font-black tracking-tight text-foreground sm:text-4xl">
-              {mode === "signup" ? "Start learning language with AI" : "Welcome back to NISQAI"}
-            </h1>
-            <p className="text-sm text-muted-foreground">
-              {mode === "signup"
-                ? "Join thousands of learners and practice with smart, adaptive lessons."
-                : "Log in and continue your streak with personalized AI tutoring."}
-            </p>
+        <div className="auth-card mx-auto w-full max-w-md overflow-hidden rounded-[2rem] border border-border/50 bg-card/95 p-8 shadow-[var(--shadow-float)] backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_28px_80px_-40px_rgba(0,0,0,0.45)]">
+          <div className="mb-6 flex items-center justify-between gap-4">
+            <div className="space-y-3">
+              <p className="inline-flex rounded-full bg-primary/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.24em] text-primary">
+                Fast setup
+              </p>
+              <h1 className="text-3xl font-black tracking-tight text-foreground sm:text-4xl">
+                {mode === "signup" ? "Start learning language with AI" : "Welcome back to NISQAI"}
+              </h1>
+              <p className="text-sm text-muted-foreground">
+                {mode === "signup"
+                  ? "Join thousands of learners and practice with smart, adaptive lessons."
+                  : "Log in and continue your streak with personalized AI tutoring."}
+              </p>
+            </div>
+            <ThemeToggle />
           </div>
 
           <Button

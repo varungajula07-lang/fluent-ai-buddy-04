@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { Flame, Zap, LogOut } from "lucide-react";
 import { getMyStats } from "@/lib/lessons.functions";
 import { supabase } from "@/integrations/supabase/client";
+import { ThemeToggle } from "@/components/nisqai/ThemeToggle";
 
 const NAV = [
   { to: "/dashboard", label: "Home" },
@@ -50,6 +51,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <span className="flex items-center gap-1 rounded-full bg-primary/15 px-3 py-1 text-sm font-semibold text-primary shadow-card transition-transform duration-300 hover:-translate-y-0.5">
               <Flame className="h-4 w-4" /> {profile?.streak ?? 0}
             </span>
+            <ThemeToggle />
             <button
               onClick={signOut}
               aria-label="Sign out"

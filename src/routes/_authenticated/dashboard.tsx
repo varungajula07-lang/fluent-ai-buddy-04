@@ -25,15 +25,55 @@ function Dashboard() {
   const { data, isLoading } = useQuery({ queryKey: ["stats"], queryFn: () => fetchStats({}) });
   const badges = buildBadges(data?.profile?.xp ?? 0, data?.profile?.streak ?? 0);
 
+  const recommendedLanguage = getLanguage(data?.progress?.[0]?.language_code ?? "fr");
+  const recommendedCode = recommendedLanguage?.code ?? "fr";
+
   return (
     <div className="space-y-8">
       <section>
         <h1 className="text-3xl">Hey {data?.profile?.name ?? "there"} 👋</h1>
         <p className="mt-1 text-muted-foreground">Ready for today's lesson?</p>
-        <div className="mt-4 grid grid-cols-3 gap-3">
+        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
           <Stat label="XP" value={data?.profile?.xp ?? 0} />
           <Stat label="Streak" value={`${data?.profile?.streak ?? 0} 🔥`} />
           <Stat label="Lessons" value={data?.progress.length ?? 0} />
+        </div>
+      </section>
+
+      <section className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
+        <div className="rounded-[2rem] border border-border bg-card/95 p-6 shadow-float transition-transform duration-300 hover:-translate-y-0.5">
+          <p className="text-sm font-extrabold uppercase tracking-[0.28em] text-primary">Suggested path</p>
+          <h2 className="mt-4 text-3xl font-black">Continue in {recommendedLanguage?.name ?? "French"}</h2>
+          <p className="mt-3 text-sm text-muted-foreground">
+            Jump back into your next AI lesson with a suggested module tailored to your current progress.
+          </p>
+          <Link
+            to="/learn/$code"
+            params={{ code: recommendedCode }}
+            className="mt-6 inline-flex items-center rounded-full bg-primary px-5 py-3 text-sm font-bold text-primary-foreground transition hover:bg-primary-deep"
+          >
+            Continue learning
+          </Link>
+        </div>
+
+        <div className="rounded-[2rem] border border-border bg-card/95 p-6 shadow-float">
+          <p className="text-sm font-extrabold uppercase tracking-[0.28em] text-muted-foreground">Tip</p>
+          <p className="mt-4 text-lg font-bold">Explore lessons by topic and level.</p>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">
+            Pick a language, choose a learning module, and generate a lesson with words, sentences,
+            dialogue, and a quiz. Each step builds your confidence with friendly practice.
+          </p>
+          <div className="mt-6 grid gap-3">
+            <div className="rounded-3xl bg-primary/10 p-4 text-sm text-primary">
+              <strong>Beginner</strong> modules help you start speaking right away.
+            </div>
+            <div className="rounded-3xl bg-accent/10 p-4 text-sm text-accent-deep">
+              <strong>Intermediate</strong> lessons deepen vocabulary and real-life dialogue.
+            </div>
+            <div className="rounded-3xl bg-muted p-4 text-sm text-muted-foreground">
+              <strong>Advanced</strong> content boosts fluency and comprehension.
+            </div>
+          </div>
         </div>
       </section>
 
